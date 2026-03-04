@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Free to Roam",
+  "version": "1.0.0",
+  "description": "Keeps Roam (ro.am) sessions alive in background tabs by preventing disconnect detection.",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "action": {
+    "default_title": "Toggle Free to Roam"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.ro.am/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["*://*.ro.am/*"],
+      "js": ["tweaks.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["*://*.ro.am/*"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
